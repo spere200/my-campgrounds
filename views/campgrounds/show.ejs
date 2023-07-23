@@ -4,8 +4,7 @@
 <!-- <h2><%= campground.description %></h2>
 <h2>$<%= campground.price %></h2> -->
 <footer>
-  <a href="/campgrounds/<%= campground._id %>/edit">Edit</a>
-  <a href="/campgrounds">All Campgrounds</a>
+  <a href="/campgrounds/<%= campground._id %>/edit"><button>Edit</button></a>
   <div>
     <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
       <button>Delete</button>
