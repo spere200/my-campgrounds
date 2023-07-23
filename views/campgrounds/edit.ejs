@@ -19,6 +19,15 @@
       value="<%= campground.location %>"
     />
   </div>
+  <div>
+    <label for="image"></label>
+    <input
+      type="text"
+      id="image"
+      name="campground[image]"
+      value="<%= campground.image %>"
+    />
+  </div>
   <button>Update Campground</button>
   <footer>
     <a href="/campgrounds/<%= campground._id %>">Return</a>
