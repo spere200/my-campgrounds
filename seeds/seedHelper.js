@@ -33,11 +33,13 @@ module.exports = createCityPropObj = () => {
     const descriptor = descriptors[Math.floor(Math.random() * descriptors.length)];
     const place = places[Math.floor(Math.random() * places.length)];
     const cityObj = cities[Math.floor(Math.random() * cities.length)];
-    const price = Math.floor(Math.random() * 100) + 1;
+    const price = Math.floor(Math.random() * 20) + 10;
     const description = `A ${descriptor} ${place} in ${cityObj.city}.`;
+    const image = 'https://source.unsplash.com/random/?camping';
 
     return {
-        title: `${descriptor} ${place}`, 
+        title: `${descriptor} ${place}`,
+        image, 
         price,
         description,
         location: cityObj.city
