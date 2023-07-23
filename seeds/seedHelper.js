@@ -36,10 +36,11 @@ module.exports = createCityPropObj = () => {
     const price = Math.floor(Math.random() * 100) + 1;
     const description = `A ${descriptor} ${place} in ${cityObj.city}.`;
 
-    return {title: `${descriptor} ${place}`, 
-            price,
-            description,
-            location: cityObj.city
+    return {
+        title: `${descriptor} ${place}`, 
+        price,
+        description,
+        location: cityObj.city
     };
 }
 

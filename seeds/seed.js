@@ -24,6 +24,6 @@ const seedDB = async (numCamps=5) => {
     console.log('Finished Seeding');
 }
 
-seedDB(50).then(() => {
+seedDB(process.argv.length < 3 ? 50 : process.argv[2]).then(() => {
     db.close();
 });
