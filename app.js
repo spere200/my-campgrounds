@@ -1,4 +1,4 @@
-// imports
+// IMPORTS
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -8,10 +8,11 @@ const joi = require('./schemas');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 
-// models
+// MODELS
 const Campground = require('./models/campground');
+const Review = require('./models/review');
 
-// mongoose
+// MONGOOSE
 mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
 
 const db = mongoose.connection;
@@ -20,9 +21,9 @@ db.once('open', () => {
     console.log('Connection established.');
 });
 
-// middleware functions
+// MIDDLEWARE FUNCTIONS
 const validateCampground = (req, res, next) => {
-    // Joi validation
+    // JOI VALIDATION
     const campgroundJSchema = joi.campgroundJSchema;
 
     const { error } = campgroundJSchema.validate(req.body);
@@ -35,7 +36,7 @@ const validateCampground = (req, res, next) => {
     }
 }
 
-// express
+// EXPRESS
 const app = express();
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
@@ -44,6 +45,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+// CAMP ROUTES
 app.get('/', (req, res) => {
     res.render('campgrounds/home');
 });
@@ -84,6 +86,16 @@ app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
     res.redirect('/campgrounds');
+}));
+
+// REVIEW ROUTES
+app.post('/campgrounds/:id/reviews', catchAsync(async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    campground.reviews.push(review);
+    await review.save();
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
 }));
 
 app.all('*', (req, res, next) => {
