@@ -23,16 +23,26 @@ db.once('open', () => {
 
 // MIDDLEWARE FUNCTIONS
 const validateCampground = (req, res, next) => {
-    // JOI VALIDATION
-    const campgroundJSchema = joi.campgroundJSchema;
-
-    const { error } = campgroundJSchema.validate(req.body);
+    // Joi validation
+    const { error } = joi.campgroundJSchema.validate(req.body);
 
     if (error) {
         const msg = error.details.map(el => el.message).join(',');
         throw new ExpressError(msg, 400);
     } else {
         next();
+    }
+}
+
+const validateReview = (req, res, next) => {
+    // Joi validation
+    const { error } = joi.reviewJSchema.validate(req.body);
+
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',');
+        throw new ExpressError(msg, 400);
+    } else {
+        next(error);
     }
 }
 
@@ -72,7 +82,7 @@ app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
 }));
 
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
+    const campground = await Campground.findById(req.params.id).populate('reviews');
     res.render('campgrounds/show', { campground });
 }));
 
@@ -89,7 +99,7 @@ app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
 }));
 
 // REVIEW ROUTES
-app.post('/campgrounds/:id/reviews', catchAsync(async (req, res) => {
+app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
     campground.reviews.push(review);
@@ -97,6 +107,12 @@ app.post('/campgrounds/:id/reviews', catchAsync(async (req, res) => {
     await campground.save();
     res.redirect(`/campgrounds/${campground._id}`);
 }));
+
+app.delete('/campgrounds/:campId/reviews/:reviewId', async (req, res) => {
+    await Campground.findByIdAndUpdate(req.params.campId, { $pull: { reviews: req.params.reviewId } });
+    await Review.findByIdAndDelete(req.params.reviewId);
+    res.redirect(`/campgrounds/${req.params.campId}`);
+});
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404));
