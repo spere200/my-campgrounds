@@ -65,7 +65,8 @@ module.exports = createCityPropObj = () => {
         image, 
         price,
         description,
-        location: cityObj.city
+        location: cityObj.city,
+        author: "64c7612a6e322a99f1f35737"
     };
 }
 
