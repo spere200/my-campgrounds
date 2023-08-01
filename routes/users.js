@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/user');
 const catchAsync = require('../utils/catchAsync');
 const passport = require('passport');
-const {storeReturnTo} = require('../middleware');
+const { storeReturnTo } = require('../middleware');
 
 router.get('/register', (req, res, next) => {
     res.render('users/register');
@@ -19,7 +19,7 @@ router.post('/register', catchAsync(async (req, res, next) => {
             if (err) {
                 return next(err)
             }
-            else{
+            else {
                 req.flash('success', 'You are now logged in.');
                 res.redirect('/campgrounds');
             }

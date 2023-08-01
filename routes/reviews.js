@@ -1,26 +1,12 @@
 // IMPORTS
 const express = require('express');
 const router = express.Router({mergeParams: true});
-const joi = require('../schemas');
 const catchAsync = require('../utils/catchAsync');
-const ExpressError = require('../utils/ExpressError');
+const {validateReview} = require('../middleware');
 
 // MODELS
 const Campground = require('../models/campground');
 const Review = require('../models/review');
-
-// MIDDLEWARE FUNCTIONS
-const validateReview = (req, res, next) => {
-    // Joi validation
-    const { error } = joi.reviewJSchema.validate(req.body);
-
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',');
-        throw new ExpressError(msg, 400);
-    } else {
-        next(error);
-    }
-}
 
 // REVIEW ROUTES
 router.post('/', validateReview, catchAsync(async (req, res) => {
