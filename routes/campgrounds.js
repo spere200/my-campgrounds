@@ -1,13 +1,9 @@
 // IMPORTS
 const express = require('express');
 const router = express.Router();
-const joi = require('../schemas');
 const catchAsync = require('../utils/catchAsync');
 const { isLoggedIn, validateCampground, isAuthor } = require('../middleware');
 const campgrounds = require('../controllers/campgrounds');
-
-// MODELS
-const Campground = require('../models/campground');
 
 // CAMPGROUND ROUTES
 router.get('/', catchAsync(campgrounds.index));
