@@ -1,4 +1,5 @@
 const Campground = require('./models/campground');
+const Review = require('./models/review');
 const ExpressError = require('./utils/ExpressError');
 const joi = require('./schemas');
 
@@ -55,5 +56,18 @@ module.exports.validateReview = (req, res, next) => {
         throw new ExpressError(msg, 400);
     } else {
         next(error);
+    }
+}
+
+module.exports.isReviewAuthor = async (req, res, next) => {
+    const {id, reviewId} = req.params;
+    const review = await Review.findById(reviewId);
+
+    if(review && review.author.equals(req.user._id)){
+        next()
+    }
+    else{
+        req.flash('error', 'Permission denied.');
+        res.redirect(`/campgrounds/${id}`)
     }
 }

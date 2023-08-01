@@ -33,7 +33,12 @@ router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(async (req, res) => {
 }));
 
 router.get('/:id', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
+    // to populate nested fields, you need to use an object with path set to the object ref
+    // to populate, and then populate set to an object that specifies which field to populate
+    // in that ref, if you want to keep populating you keep adding nested populate fields
+    const campground = await Campground.findById(req.params.id)
+                             .populate({path: 'reviews', populate: {path: 'author'}})
+                             .populate('author');
     if (!campground) {
         req.flash('error', 'Invalid campground ID.')
         res.redirect('/campgrounds')
