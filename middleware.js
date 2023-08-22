@@ -22,6 +22,8 @@ module.exports.storeReturnTo = (req, res, next) => {
 }
 
 module.exports.validateCampground = (req, res, next) => {
+    console.log(req.body);
+
     // Joi validation
     const { error } = joi.campgroundJSchema.validate(req.body);
 
