@@ -29,7 +29,7 @@ const places = [
     'Hollow'
 ];
 
-const images = [
+const imagesSrc = [
     "https://images.unsplash.com/photo-1517398825998-780ca786555f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXw0OTc3MjU2N3x8ZW58MHx8fHx8&w=1000&q=80",
     "https://images.unsplash.com/photo-1640189668430-f9791d4db74a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8Mnw0OTc3MjU2N3x8ZW58MHx8fHx8&w=1000&q=80",
     "https://images.unsplash.com/photo-1621306558057-1d040ee57bb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8M3w0OTc3MjU2N3x8ZW58MHx8fHx8&w=1000&q=80",
@@ -58,11 +58,11 @@ module.exports = createCityPropObj = () => {
     const cityObj = cities[Math.floor(Math.random() * cities.length)];
     const price = Math.floor(Math.random() * 20) + 10;
     const description = `A ${descriptor} ${place} in ${cityObj.city}.`;
-    const image = images[Math.floor(Math.random() * images.length)];;
+    const images = [{url: imagesSrc[Math.floor(Math.random() * imagesSrc.length)], filename: descriptor}];
 
     return {
         title: `${descriptor} ${place}`,
-        image, 
+        images, 
         price,
         description,
         location: cityObj.city,
