@@ -11,17 +11,17 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.create = async (req, res, next) => {
     // if(!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
-
     const campground = new Campground(req.body.campground);
     campground.author = req.user._id;
     await campground.save();
+    // console.log(campground);
     req.flash('success', 'Campground successfully created.');
     res.redirect(`/campgrounds/${campground._id}`);
 }
 
 module.exports.renderEditForm = async (req, res) => {
     const campground = res.locals.foundCampground;
-    res.render('../views/campgrounds/edit', { campground })
+    res.render('../views/campgrounds/edit', { campground });
 }
 
 module.exports.show = async (req, res) => {
