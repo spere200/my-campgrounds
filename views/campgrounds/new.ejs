@@ -24,7 +24,13 @@
         />
       </div>
       <div class="mb-3">
-        <input type="file" name="campground[images]" id="images" multiple>
+        <div class="form-file custom-file">
+          <input type="file" class="form-file-input" id="customFile" name="campground[images]" id="images" multiple>
+          <label for="customFile" class="form-file-label">
+            <span class="form-file-text custom-file-label">Choose images to upload...</span>
+            <span class="form-file-button">Browse</span>
+          </label>
+        </div>
         <!-- <label class="form-label" for="image">Image</label>
         <input
           class="form-control"
