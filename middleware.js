@@ -23,7 +23,6 @@ module.exports.storeReturnTo = (req, res, next) => {
 
 module.exports.validateCampground = (req, res, next) => {
     req.body.campground.images = req.files.map(f => ({url: f.path, filename: f.filename}));
-    // console.log(req.body);
 
     // Joi validation
     const { error } = joi.campgroundJSchema.validate(req.body);
