@@ -19,7 +19,7 @@ router.get('/', catchAsync(campgrounds.index));
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);
 router.post('/', isLoggedIn, upload.array('campground[images]'), validateCampground, catchAsync(campgrounds.create));
 router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm));
-router.put('/:id', isLoggedIn, isAuthor, validateCampground, catchAsync(campgrounds.edit));
+router.put('/:id', isLoggedIn, upload.array('campground[images]'), isAuthor, validateCampground, catchAsync(campgrounds.edit));
 router.get('/:id', catchAsync(campgrounds.show));
 router.delete('/:id', isLoggedIn, isAuthor, catchAsync(campgrounds.delete));
 

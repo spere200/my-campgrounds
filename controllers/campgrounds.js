@@ -20,7 +20,13 @@ module.exports.create = async (req, res, next) => {
 }
 
 module.exports.renderEditForm = async (req, res) => {
-    const campground = res.locals.foundCampground;
+    const campground = await Campground.findById(req.params.id);
+
+    if (!campground){
+        req.flash('error', 'Cannot find that campground.');
+        return res.redirect('/campgrounds');
+    }
+
     res.render('../views/campgrounds/edit', { campground });
 }
 
@@ -39,16 +45,14 @@ module.exports.show = async (req, res) => {
 }
 
 module.exports.edit = async (req, res) => {
-    // const { id } = req.params;
-    // const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
-    const campground = res.locals.foundCampground;
+    const { id } = req.params;
+    const campground = await Campground.findById(id);
+    const oldImages = campground.images;
+    await campground.updateOne({...req.body.campground});
+    campground.images.push(...oldImages);
+    await campground.save();
 
-    if (!campground) {
-        req.flash('error', 'Invalid campground ID.')
-        res.redirect('/campgrounds')
-    }
-
-    await campground.updateOne({ ...req.body.campground });
+    req.flash('success', 'Successfully updated campground.')
     res.redirect(`/campgrounds/${campground._id}`);
 }
 

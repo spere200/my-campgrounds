@@ -41,7 +41,7 @@ module.exports.isAuthor = async (req, res, next) => {
     const campground = await Campground.findById(id);
 
     if (campground && campground.author.equals(req.user._id)) {
-        res.locals.foundCampground = campground;
+        // res.locals.foundCampground = campground;
         next();
     }
     else {
