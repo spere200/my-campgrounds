@@ -1,12 +1,26 @@
 <% layout('layouts/boilerplate') %>
 <div class="row">
   <div class="col-6">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <% campground.images.forEach((element, index) => { %>
+        <div class="carousel-item <%= index == 0 ? 'active' : '' %>">
+          <img src="<%= element.url %>" class="d-block w-100" alt="..." />
+        </div>
+        <% });%>
+      </div>
+      <% if(campground.images.length > 1) { %>
+      <a class="carousel-control-prev" role="button" data-target="#carouselExampleControls" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" role="button" data-target="#carouselExampleControls" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+      <% } %>
+    </div>
     <div class="card mb-3">
-      <img
-        src="<%= campground.images[0].url %>"
-        class="card-img-top"
-        alt="<%= campground.description %>"
-      />
       <div class="card-body">
         <h5 class="card-title"><%= campground.title %></h5>
         <p class="card-text"><%= campground.description %></p>
