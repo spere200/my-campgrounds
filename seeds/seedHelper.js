@@ -59,13 +59,15 @@ module.exports = createCityPropObj = () => {
     const price = Math.floor(Math.random() * 20) + 10;
     const description = `A ${descriptor} ${place} in ${cityObj.city}.`;
     const images = [{url: imagesSrc[Math.floor(Math.random() * imagesSrc.length)], filename: descriptor}];
+    const location = `${cityObj.city}, ${cityObj.state}`;
 
     return {
         title: `${descriptor} ${place}`,
-        images, 
+        images,
+        geometry: {type: "Point", coordinates: [-80.42626, 25.64809]},
         price,
         description,
-        location: cityObj.city,
+        location,
         author: "64c7612a6e322a99f1f35737"
     };
 }
