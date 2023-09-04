@@ -40,6 +40,13 @@ const CampgroundSchema = new Schema({
             ref: 'Review'
         }
     ]
+}, {toJSON: {virtuals: true}});
+
+CampgroundSchema.virtual('properties.popupMarkup').get(function() {
+    const description = this.description.length > 30 ? (this.description.substring(0, 30) + '...') : this.description
+
+    return `<strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
+            <p>${description}</p>`;
 });
 
 CampgroundSchema.post('findOneAndDelete', async function (doc) {

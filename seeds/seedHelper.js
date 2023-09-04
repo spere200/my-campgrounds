@@ -64,7 +64,7 @@ module.exports = createCityPropObj = () => {
     return {
         title: `${descriptor} ${place}`,
         images,
-        geometry: {type: "Point", coordinates: [-80.42626, 25.64809]},
+        geometry: {type: "Point", coordinates: [cityObj.longitude, cityObj.latitude]},
         price,
         description,
         location,
