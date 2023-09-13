@@ -2,7 +2,7 @@ mapboxgl.accessToken = mapToken;
 
 var map = new mapboxgl.Map({
     container: 'show-map',
-    style: 'mapbox://styles/mapbox/light-v11',
+    style: 'mapbox://styles/mapbox/streets-v12',
     center: campground.geometry.coordinates,
     zoom: 10
 });
