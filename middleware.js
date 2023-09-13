@@ -22,7 +22,7 @@ module.exports.storeReturnTo = (req, res, next) => {
 }
 
 module.exports.validateCampground = (req, res, next) => {
-    req.body.campground.images = req.files.map(f => ({url: f.path, filename: f.filename}));
+    req.body.campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
 
     // Joi validation
     const { error } = joi.campgroundJSchema.validate(req.body);
@@ -62,13 +62,13 @@ module.exports.validateReview = (req, res, next) => {
 }
 
 module.exports.isReviewAuthor = async (req, res, next) => {
-    const {id, reviewId} = req.params;
+    const { id, reviewId } = req.params;
     const review = await Review.findById(reviewId);
 
-    if(review && review.author.equals(req.user._id)){
+    if (review && review.author.equals(req.user._id)) {
         next()
     }
-    else{
+    else {
         req.flash('error', 'Permission denied.');
         res.redirect(`/campgrounds/${id}`)
     }

@@ -2,15 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Review = require('./review');
 
-// https://res.cloudinary.com/dv5vghspb/image/upload/w_200/v1693236617/YelpCamp/l6hek1t1vk3xpwq7qdm4.jpg
-
 const ImageSchema = new Schema({
     url: String,
     filename: String
 });
 
-ImageSchema.virtual('thumbnail').get(function() {
-    return this.url.replace('/upload', '/upload/w_200');
+ImageSchema.virtual('thumbnail').get(function () {
+    return this.url.replace('/upload', '/upload/w_800,h_600,c_fill');
 });
 
 const CampgroundSchema = new Schema({
@@ -40,9 +38,9 @@ const CampgroundSchema = new Schema({
             ref: 'Review'
         }
     ]
-}, {toJSON: {virtuals: true}});
+}, { toJSON: { virtuals: true } });
 
-CampgroundSchema.virtual('properties.popupMarkup').get(function() {
+CampgroundSchema.virtual('properties.popupMarkup').get(function () {
     const description = this.description.length > 30 ? (this.description.substring(0, 30) + '...') : this.description
 
     return `<strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
@@ -50,7 +48,7 @@ CampgroundSchema.virtual('properties.popupMarkup').get(function() {
 });
 
 CampgroundSchema.post('findOneAndDelete', async function (doc) {
-    if(doc){
+    if (doc) {
         await Review.deleteOne({
             _id: {
                 $in: doc.reviews
