@@ -1,4 +1,4 @@
-if(process.env.NODE_ENV !== 'production'){
+if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
@@ -50,7 +50,7 @@ const store = new MongoDBStore({
     url: dbUrl,
     secret,
     touchAfter: 24 * 60 * 60
-}).on('error', function(e){
+}).on('error', function (e) {
     console.log('SESSION STORE ERROR');
 });
 
@@ -71,13 +71,13 @@ const sessionConfig = {
 };
 app.use(session(sessionConfig));
 app.use(flash());
-app.use(helmet({contentSecurityPolicy: false}));
+app.use(helmet({ contentSecurityPolicy: false }));
 
 // AUTHENTICATION
 // app.use(express.session()) has to be called before this, but it's 
 // already called in the session/flash section
 app.use(passport.initialize());
-app.use(passport.session()); 
+app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
