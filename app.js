@@ -115,6 +115,8 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('campgrounds/error', { err });
 })
 
-app.listen(process.env.PORT, () => {
+const appPort = process.env.PORT || '3000';
+
+app.listen(appPort, () => {
     console.log(`Listening on port ${process.env.PORT}`);
 });
