@@ -3,11 +3,20 @@
 
 <div class="row">
   <div class="col-6">
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div
+      id="carouselExampleControls"
+      class="carousel slide"
+      data-ride="carousel"
+    >
       <div class="carousel-inner">
         <% campground.images.forEach((element, index) => { %>
         <div class="carousel-item <%= index == 0 ? 'active' : '' %>">
-          <img crossorigin="anonymous" src="<%= element.thumbnail %>" class="d-block w-100" alt="..." />
+          <img
+            crossorigin="anonymous"
+            src="<%= element.thumbnail %>"
+            class="d-block w-100"
+            alt="..."
+          />
         </div>
         <% })%>
       </div>
@@ -43,7 +52,11 @@
       </ul>
       <% if(currentUser && campground.author.equals(currentUser._id)){ %>
       <div class="card-body">
-        <a href="/campgrounds/<%= campground._id %>/edit" class="card-link btn btn-info">Edit</a>
+        <a
+          href="/campgrounds/<%= campground._id %>/edit"
+          class="card-link btn btn-info"
+          >Edit</a
+        >
         <form
           class="d-inline"
           action="/campgrounds/<%= campground._id %>?_method=DELETE"
@@ -92,7 +105,13 @@
           checked
           aria-label="No rating."
         />
-        <input type="radio" id="first-rate1" name="review[rating]" value="1" required />
+        <input
+          type="radio"
+          id="first-rate1"
+          name="review[rating]"
+          value="1"
+          required
+        />
         <label for="first-rate1" title="Terrible">1 star</label>
         <input type="radio" id="first-rate2" name="review[rating]" value="2" />
         <label for="first-rate2" title="Not good">2 stars</label>
