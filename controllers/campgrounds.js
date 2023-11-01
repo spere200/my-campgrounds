@@ -25,6 +25,11 @@ module.exports.create = async (req, res, next) => {
   const campground = new Campground(req.body.campground);
   campground.geometry = geoData.body.features[0].geometry;
   campground.author = req.user._id;
+  campground.creationDate = new Date().toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
   await campground.save();
   req.flash("success", "Campground successfully created.");
   res.redirect(`/campgrounds/${campground._id}`);

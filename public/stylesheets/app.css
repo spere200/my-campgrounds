@@ -17,3 +17,7 @@
   height: 100%;
   object-fit: cover;
 }
+
+.carousell-image{
+  object-fit: cover;
+}

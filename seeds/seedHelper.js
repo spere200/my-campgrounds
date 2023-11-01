@@ -103,6 +103,10 @@ module.exports = createCityPropObj = () => {
     description,
     location,
     author: "6542119e0691d7aa0083df6d",
-    creationDate: new Date().toDateString()
+    creationDate: new Date().toLocaleDateString("en-us", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
   };
 };

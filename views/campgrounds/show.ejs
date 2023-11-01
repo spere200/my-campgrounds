@@ -10,7 +10,7 @@
     >
       <div class="carousel-inner">
         <% campground.images.forEach((element, index) => { %>
-        <div class="carousel-item <%= index == 0 ? 'active' : '' %>">
+        <div class="carousel-item carousell-image <%= index == 0 ? 'active' : '' %>">
           <img
             crossorigin="anonymous"
             src="<%= element.thumbnail %>"
@@ -67,7 +67,7 @@
       </div>
       <% } %>
       <div class="card-footer text-muted">
-        Submitted by <%= campground.author.username %> 2 days ago
+        Submitted on <%= campground.creationDate %> by <%= campground.author.username %>
       </div>
     </div>
   </div>
